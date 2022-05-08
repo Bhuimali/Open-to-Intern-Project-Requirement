@@ -41,16 +41,13 @@ const createIntern = async (req, res) => {
         if(Object.keys(data).length == 0) return res.status(400).send({status: false,msg:"data is Missing"})
 
         let iscollegeName = await collageModel.findOne({ name: collegeName });
-        //console.log(iscollegeName)
+       
         if(!iscollegeName) return res.send({status: false, msg:`There is no college with this name ${collegeName}`})
       
         data.collegeId = iscollegeName._id;
 
         delete data.collegeName
       
-
-
-
         if(!data.name) return res.status(400).send({status:false, msg:"name is Requried"})
         if(data.name.trim().length == 0) return res.status(400).send({status: false, msg:"name is Required"})
         
@@ -93,7 +90,6 @@ const getCOllageDetails = async (req, res) => {
     try{
 
         let data = req.query
-        //if (data.length == 0) return res.status(400).send({ status: false, message: "provide the College name" })
         
         if(Object.keys(data) == 0) return res.status(400).send({ status: false, message: "provide the College name" })
         let findCollege = await collageModel.find({name : data.collegeName, isDeleted: false})
